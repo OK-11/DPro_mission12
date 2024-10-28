@@ -30,6 +30,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'bundler', '2.5.10'
 
+gem 'unicorn'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -49,6 +51,8 @@ group :development do
   gem "capistrano-rails", "~> 1.6", require: false
   gem 'capistrano-safe-deploy-to'
   gem 'capistrano-rbenv', '~> 2.2'
+
+  gem 'capistrano3-unicorn'
 end
 
 group :test do

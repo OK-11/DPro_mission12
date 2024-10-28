@@ -51,7 +51,7 @@
 # ------------------------------------
 server "15.168.196.231",
   user: "ec2-user",
-  roles: %w{web app},
+  roles: %w{web db app},
   ssh_options: {
     user: "ec2-user", # overrides user setting above
     keys: %{~/Downloads/first-key.pem},

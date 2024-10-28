@@ -3,7 +3,7 @@ lock "~> 3.19.1"
 
 set :application, "blog_app"
 set :repo_url, "https://github.com/OK-11/DPro_mission12.git"
-set :linked_files, %w{config/secrets.yml}
+set :linked_files, %w{config/secrets.yml .env}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads}
 set :keep_releases, 5
 set :rbenv_ruby, '3.3.0'

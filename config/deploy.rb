@@ -3,6 +3,11 @@ lock "~> 3.19.1"
 
 set :application, "blog_app"
 set :repo_url, "https://github.com/OK-11/DPro_mission12.git"
+set :linked_files, %w{config/secrets.yml}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads}
+set :keep_releases,
+set :rbenv_ruby, '3.3.0'
+set :log_level, :info
 set :bundle_without, %w{test}.join(':')
 
 set :rbenv_version, '3.3.0'
@@ -12,6 +17,25 @@ set :default_env, {
   'NVM_DIR' => '/home/ec2-user/.nvm',
   'PATH' => "/home/ec2-user/.nvm/versions/node/v16.20.2/bin:$PATH"
 }
+
+after 'deploy:published', 'deploy:seed'
+after 'deploy:finished', 'deploy:restart'
+namespace :deploy do
+  desc 'Run seed'
+  task :seed do
+    on roles(:db) do
+      with rails_env: fetch(:rails_env) do
+        within current_path do
+          execute :bundle, :exec, :rake, 'db:seed'
+        end
+      end
+    end
+  end
+  desc 'Restart application'
+  task :restart do
+    invoke 'unicorn:restart'
+  end
+end
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
